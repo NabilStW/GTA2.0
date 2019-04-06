@@ -47,9 +47,9 @@ public class Keyboard implements KeyListener {
         case KeyEvent.VK_N:
         	 game.bouledefeu();
         	 break;
-        case KeyEvent.VK_A:
-       	     game.quatreFeux();
-       	     break;
+        //case KeyEvent.VK_A:
+       	  //   game.quatreFeux();
+       	    // break;
         case KeyEvent.VK_Z:
       	     game.flash();
       	     break;
@@ -59,6 +59,12 @@ public class Keyboard implements KeyListener {
         case KeyEvent.VK_2:
        	 	 game.changeMap(2);
        	 	 break;
+        case KeyEvent.VK_3:
+        	 game.changeMap(3); 
+        	 break;
+        case KeyEvent.VK_4:
+       	 	game.changeMap(4);
+       	 	break;
         	 //
         }
     }

@@ -39,6 +39,12 @@ public class Map extends JPanel {
     BufferedImage armoire = null;
     BufferedImage four = null;
     BufferedImage truccuisine = null;
+    BufferedImage bureau = null;
+    BufferedImage miroir = null;
+    BufferedImage canape = null;
+    BufferedImage armoirecuisine = null;
+    BufferedImage portail = null;
+    BufferedImage murgris = null;
     
     public Map(int MAP_SIZE, int BLOC_SIZE) {
     	this.BLOC_SIZE = BLOC_SIZE;
@@ -89,6 +95,20 @@ public class Map extends JPanel {
         	BufferedImage four = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
         	truccuisine = ImageIO.read(new File("Images/truccuisine.png"));
         	BufferedImage truccuisine = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	bureau = ImageIO.read(new File("Images/bureau.png"));
+        	BufferedImage bureau = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	miroir = ImageIO.read(new File("Images/miroir.png"));
+        	BufferedImage miroir = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	canape = ImageIO.read(new File("Images/canape.png"));
+        	BufferedImage canape = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	armoirecuisine = ImageIO.read(new File("Images/armoirecuisine.png"));
+        	BufferedImage armoirecuisine = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	portail = ImageIO.read(new File("Images/portail.png"));
+        	BufferedImage portail = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	murgris = ImageIO.read(new File("Images/murgris.png"));
+        	BufferedImage murgris = new BufferedImage(BLOC_SIZE,BLOC_SIZE, BufferedImage.TYPE_INT_ARGB);
+        	
+        	
         	
         }
         catch (IOException e) {
@@ -100,14 +120,14 @@ public class Map extends JPanel {
 
     public void paint(Graphics g) {
     	if (numeroMap == 1) {
-        	g.drawImage(lit1, 7*BLOC_SIZE,4*BLOC_SIZE,19*BLOC_SIZE,17*BLOC_SIZE, null);
+        	//g.drawImage(lit1, 7*BLOC_SIZE,4*BLOC_SIZE,19*BLOC_SIZE,17*BLOC_SIZE, null);
         	for (int i = 0; i < MAP_SIZE; i++) { 
                 for (int j = 0; j < MAP_SIZE; j++) {
                 	int x = i;
                     int y = j;
                     g.drawImage(parquet,  x*BLOC_SIZE-12, y*BLOC_SIZE,BLOC_SIZE,BLOC_SIZE, null);
                 }
-        	}
+        	}g.drawImage(portail, BLOC_SIZE*17,BLOC_SIZE*29,BLOC_SIZE*2,BLOC_SIZE,null);   
         }
 
         for (GameObject object : this.objects) {
@@ -124,6 +144,7 @@ public class Map extends JPanel {
             case 6 : g.drawImage(mechant,  x*BLOC_SIZE, y*BLOC_SIZE,BLOC_SIZE,BLOC_SIZE, null); break;
             case 9 : g.drawImage(porte_ouverte,  x*BLOC_SIZE-10, y*BLOC_SIZE,BLOC_SIZE+15,BLOC_SIZE, null); break;
             case 10 : g.drawImage(porte_ferme,  x*BLOC_SIZE, y*BLOC_SIZE,BLOC_SIZE,BLOC_SIZE, null); break;
+            case 11 : g.drawImage(murgris,  x*BLOC_SIZE, y*BLOC_SIZE,BLOC_SIZE,BLOC_SIZE, null); break;
             
             }
 
@@ -157,11 +178,23 @@ public class Map extends JPanel {
         if (numeroMap == 1) {
         	g.drawImage(lit1,  BLOC_SIZE*3, BLOC_SIZE,BLOC_SIZE*3,BLOC_SIZE*4, null);
         	g.drawImage(lit2,  BLOC_SIZE*26-33, BLOC_SIZE,BLOC_SIZE+65,BLOC_SIZE+75, null);
-        	g.drawImage(bain,  BLOC_SIZE*14, BLOC_SIZE-15,BLOC_SIZE*4+10,BLOC_SIZE*3+25, null);
+        	g.drawImage(bain,  BLOC_SIZE*14, BLOC_SIZE-28,BLOC_SIZE*4+10,BLOC_SIZE*3+25, null);
         	g.drawImage(armoire,  BLOC_SIZE, BLOC_SIZE,BLOC_SIZE*2,BLOC_SIZE*2, null);
         	g.drawImage(four,  BLOC_SIZE*28, BLOC_SIZE*17,BLOC_SIZE*2,BLOC_SIZE*2, null);
-        	
-        	
+        	g.drawImage(bureau, BLOC_SIZE*23,BLOC_SIZE*2,BLOC_SIZE,BLOC_SIZE*2,null);
+        	g.drawImage(miroir, BLOC_SIZE*10,BLOC_SIZE,BLOC_SIZE,BLOC_SIZE*2,null);
+        	g.drawImage(armoirecuisine, BLOC_SIZE*24,BLOC_SIZE*14-15,BLOC_SIZE*3,BLOC_SIZE*2+10,null);
+        	 	
+        }
+        else if (numeroMap == 2) {
+        	g.drawImage(portail, BLOC_SIZE*16,BLOC_SIZE*29,BLOC_SIZE*2,BLOC_SIZE,null);    	
+        }
+        else if (numeroMap == 3) {
+        	g.drawImage(portail, BLOC_SIZE*13,BLOC_SIZE*29,BLOC_SIZE*2,BLOC_SIZE,null);  
+        	g.drawImage(portail, BLOC_SIZE*15,BLOC_SIZE*1,BLOC_SIZE*2,BLOC_SIZE,null);  
+        }
+        else if (numeroMap == 4) {
+        	g.drawImage(portail, BLOC_SIZE*13,BLOC_SIZE*29,BLOC_SIZE*2,BLOC_SIZE,null);    	
         }
     }
 

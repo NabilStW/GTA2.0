@@ -18,6 +18,8 @@ import org.omg.CosNaming.IstringHelper;
 public class Game implements DeletableObserver {
     private ArrayList<GameObject> objects1 = new ArrayList<GameObject>();
     private ArrayList<GameObject> objects2 = new ArrayList<GameObject>();
+    private ArrayList<GameObject> objects3 = new ArrayList<GameObject>();
+    private ArrayList<GameObject> objects4 = new ArrayList<GameObject>();
     private ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Bot> bots = new ArrayList<Bot>();
     private Player active_player = null;   // quel joueur est joué ?
@@ -58,9 +60,15 @@ public class Game implements DeletableObserver {
     		liste = objects1;
     	}else if (numeroMap==2) {
     		liste = objects2;
+    	}else if (numeroMap == 3) {
+    		liste = objects3;
+    	}else if (numeroMap == 4) {
+    		liste = objects4;
     	}
     	switch(Integer.parseInt(data[0])) {
-    	case 0: liste.add(new BlockUnbreakable(Integer.parseInt(data[1]), Integer.parseInt(data[2]),Integer.parseInt(data[3]))); break;
+    	case 0: BlockBreakable block = new BlockBreakable(Integer.parseInt(data[1]), Integer.parseInt(data[2]),1);block.attachDeletable(this);
+    	liste.add(block);break;
+    	case 1: liste.add(new BlockUnbreakable(Integer.parseInt(data[1]), Integer.parseInt(data[2]),Integer.parseInt(data[3]))); break;
     	}
     }
     public void changeMap(int numeroMap) {
@@ -68,6 +76,8 @@ public class Game implements DeletableObserver {
     	switch(numeroMap) {
     	case 1: window.setGameObjects(objects1,1);break;
     	case 2 : window.setGameObjects(objects2,2);break;
+    	case 3 : window.setGameObjects(objects3, 3);break;
+    	case 4 : window.setGameObjects(objects4, 4);break;
     	}
     	notifyView();
     }
@@ -75,8 +85,8 @@ public class Game implements DeletableObserver {
     public Game(Window window) {
         this.window = window;
         size = window.getMapSize();	
-        Player p = new Player(10, 10,666666); objects1.add(p); players.add(p); objects2.add(p);     
-        MapCreator(1); MapCreator(2);
+        Player p = new Player(10, 10,666666); objects1.add(p); players.add(p); objects2.add(p); objects3.add(p);objects4.add(p); 
+        MapCreator(1); MapCreator(2); MapCreator(3); MapCreator(4);
         
         /*for (int i = 0; i < 10; i++) {
         	objects1.add(new Bot(i,i,6,1000,window,this));
@@ -90,9 +100,16 @@ public class Game implements DeletableObserver {
         // Map building
         for (int i = 0; i < size; i++) {
             objects1.add(new BlockUnbreakable(i, 0,0));objects2.add(new BlockUnbreakable(i, 0,0));
+            objects3.add(new BlockUnbreakable(i, 0,0));objects4.add(new BlockUnbreakable(i, 0,0));
+            
             objects1.add(new BlockUnbreakable(0, i,0));objects2.add(new BlockUnbreakable(0, i,0));
+            objects3.add(new BlockUnbreakable(0, i,0));objects4.add(new BlockUnbreakable(0, i,0));
+            
             objects1.add(new BlockUnbreakable(i, size - 1,0));objects2.add(new BlockUnbreakable(i, size - 1,0));
-            objects1.add(new BlockUnbreakable(size - 1, i,0));objects2.add(new BlockUnbreakable(size - 1, i,0));                   
+            objects3.add(new BlockUnbreakable(i, size - 1,0));objects4.add(new BlockUnbreakable(i, size - 1,0));
+            
+            objects1.add(new BlockUnbreakable(size - 1, i,0));objects2.add(new BlockUnbreakable(size - 1, i,0));
+            objects3.add(new BlockUnbreakable(size - 1, i,0));objects4.add(new BlockUnbreakable(size - 1, i,0));                          
             
         }
         window.setGameObjects(objects1,1);
@@ -100,15 +117,21 @@ public class Game implements DeletableObserver {
     }
     
     public boolean Obstacle(int x,int y) {
+    	ArrayList<GameObject> liste = new ArrayList<GameObject>();
     	boolean obstacle = false;
-        for (GameObject object : objects1) {
+    	switch(numeroMap) {
+    	case 1: liste = objects1; break;
+    	case 2: liste = objects2;break;
+    	case 3: liste = objects3;break;
+    	case 4: liste = objects4;break;
+    	}
+        for (GameObject object : liste) {
             if (object.isAtPosition(x, y)) {
                 obstacle = object.isObstacle();
             }
             if (obstacle == true) {
                 break;
-            }
-            
+            }         
         }
     	return obstacle;
     }
@@ -154,15 +177,6 @@ public class Game implements DeletableObserver {
     	}
     	
     }
-    public void quatreFeux() {
-    	if (active_player.pouvoir1 > 99) {
-    	bouledefeu(active_player.getPosX(), active_player.getPosY(),0);
-    	bouledefeu(active_player.getPosX(), active_player.getPosY(),1); 
-    	bouledefeu(active_player.getPosX(), active_player.getPosY(),2);
-    	bouledefeu(active_player.getPosX(), active_player.getPosY(),3);
-    	active_player.pouvoir1 = 0;
-    	}
-    	} 
     
     public void setObject(GameObject object) {
     	objects1.remove(object); 	
@@ -245,4 +259,13 @@ for (int i = 0; i < numberOfBreakableBlocks; i++) {
     BlockBreakable block = new BlockBreakable(x, y, lifepoints,energy);
     block.attachDeletable(this);
     objects.add(block);
+} */
+/*public void quatreFeux() {
+if (active_player.pouvoir1 > 99) {
+bouledefeu(active_player.getPosX(), active_player.getPosY(),0);
+bouledefeu(active_player.getPosX(), active_player.getPosY(),1); 
+bouledefeu(active_player.getPosX(), active_player.getPosY(),2);
+bouledefeu(active_player.getPosX(), active_player.getPosY(),3);
+active_player.pouvoir1 = 0;
+}
 } */

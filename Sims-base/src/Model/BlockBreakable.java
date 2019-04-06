@@ -3,27 +3,21 @@ package Model;
 import java.util.ArrayList;
 
 public class BlockBreakable extends Block implements Deletable, Activable {
-	private int energy = 0;
 
     private ArrayList<DeletableObserver> observers = new ArrayList<DeletableObserver>();
     private int lifepoints = 0;
-    public BlockBreakable(int X, int Y, int lifepoints, int energy) {
-        super(X, Y, lifepoints);
-        this.energy = energy;
+    public BlockBreakable(int X, int Y, int lifepoints) {
+        super(X, Y, 0);
         this.lifepoints = lifepoints; 
        
     }
-    public int getEnergy() {
-    	return this.energy;
-    }
-    
     public void activate(){
         if (lifepoints == 1){
             crush();
         }
         else {
             lifepoints--;
-            this.color = lifepoints - 1; // pour éviter de retourner au gris
+            //this.color = lifepoints - 1; // pour éviter de retourner au gris
         }
     }
 
